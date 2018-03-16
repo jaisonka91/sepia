@@ -35,7 +35,7 @@ class Login extends Component {
   render() {
     return (
       <div className="container">
-        <div style={{ margin: 'auto' }}>
+        <div style={{ margin: 'auto', width: '50%'}}>
           <input
             placeholder="Username"
             className="form-control"
@@ -43,6 +43,7 @@ class Login extends Component {
             onChange={e => {
               this.onChangeField(e.target.value, 'username');
             }}
+            style={{margin: 10}}
           />
           <input
             type="password"
@@ -52,8 +53,10 @@ class Login extends Component {
             onChange={e => {
               this.onChangeField(e.target.value, 'password');
             }}
+            style={{margin: 10}}
+            
           />
-          <button className="btn btn-primary" onClick={this.handleLogin}>
+          <button className="btn btn-primary" onClick={this.handleLogin} style={{float: 'right'}}>
             Login
           </button>
         </div>

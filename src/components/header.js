@@ -1,24 +1,25 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { logout } from '../redux/actions.js';
 
-export default class Header extends Component {
+class Header extends Component {
 
-  constructor(){
+  constructor(props){
     super();
     this.state = {
-      logged: false
+      logged: props.loggedIn
     }
   }
 
-  componentDidMount(){
-    if(window && window.localStorage.getItem('token')){
-      this.setState({logged: true});
-    }
+  componentWillReceiveProps(nextProps){
+    this.setState({logged: nextProps.loggedIn});
   }
 
   handleLogOut = () =>{
     window.localStorage.removeItem('token');
-    window.location = '/';
+    this.props.logout();
   }
 
   render(){
@@ -34,8 +35,8 @@ export default class Header extends Component {
           {
             this.state.logged &&
             <div>
-              <a onClick={this.handleLogOut}> Logout </a>
               <Link to={'search'}> Search </Link>
+              <a onClick={this.handleLogOut} style={{float: 'right', color: '#fff', cursor: 'pointer'}}> Logout </a>
             </div>
           }
         </div>
@@ -43,3 +44,13 @@ export default class Header extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) =>{
+  return {loggedIn: state.user.loggedIn}
+}
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({ logout }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

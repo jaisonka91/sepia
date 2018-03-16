@@ -3,8 +3,9 @@ import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import Header from './components/header';
 import Login from './components/login';
 import Search from './components/search';
+import { connect } from 'react-redux';
 
-export default (
+const RouteApp = (props) =>(
   <Router>
     <div>
       <Route path="/" component={Header} />
@@ -12,7 +13,8 @@ export default (
         exact
         path="/"
         render={() => {
-          if (window && window.localStorage.getItem('token')) {
+          const { loggedIn } = props;
+          if (loggedIn) {
             if (window.location.pathname != '/search') {
               return <Redirect push to="/search" />;
             }
@@ -23,7 +25,8 @@ export default (
       <Route
         path="/login"
         render={() => {
-          if (window && window.localStorage.getItem('token')) {
+          const { loggedIn } = props;
+          if (loggedIn) {
             if (window.location.pathname != '/search') {
               return <Redirect push to="/search" />;
             }
@@ -34,7 +37,8 @@ export default (
       <Route
         path="/search"
         render={() => {
-          if (window && window.localStorage.getItem('token')) {
+          const { loggedIn } = props;
+          if (loggedIn) {
             return <Search />;
           }
           return <Redirect push to="/login" />;
@@ -43,3 +47,9 @@ export default (
     </div>
   </Router>
 );
+
+const mapStateToProps = (state) =>{
+  return {loggedIn: state.user.loggedIn}
+}
+
+export default connect(mapStateToProps)(RouteApp);

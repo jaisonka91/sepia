@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
+import Routes from './routes';
 
 export default class App extends Component {
   render(){
     return(
       <Provider store={this.props.store}>
-        <div>
-          {this.props.routes}
-        </div>
+        <Routes />
       </Provider>
     )
   }
