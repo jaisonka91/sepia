@@ -1,65 +1,69 @@
 import React, { Component } from 'react';
-// import { bindActionCreators } from 'redux';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { checkLogin } from '../store/actions.js';
+import { login } from '../redux/actions.js';
 
 class Login extends Component {
-
-  constructor(){
+  constructor() {
     super();
     this.state = {
       username: '',
-      password: ''
-    }
+      password: '',
+    };
   }
 
-  onChangeField = (value, field) =>{
+  onChangeField = (value, field) => {
     switch (field) {
       case 'username':
-        this.setState({username: value});
+        this.setState({ username: value });
         break;
       case 'password':
-        this.setState({password: value});
+        this.setState({ password: value });
         break;
     }
-  }
+  };
 
   handleLogin = () => {
     const { username, password } = this.state;
-    if(username == '' || password == ''){
+    if (username == '' || password == '') {
       alert('empty');
-    }else{
-      this.props.dispatch(checkLogin(username,password));
+    } else {
+      this.props.login(username, password);
     }
-  }
+  };
 
-  render(){
-    return(
+  render() {
+    return (
       <div className="container">
-        <div style={{margin: 'auto'}}>
+        <div style={{ margin: 'auto' }}>
           <input
             placeholder="Username"
             className="form-control"
             value={this.state.username}
-            onChange={(e)=>{this.onChangeField(e.target.value, 'username')}}
+            onChange={e => {
+              this.onChangeField(e.target.value, 'username');
+            }}
           />
           <input
-            type='password'
+            type="password"
             placeholder="Password"
             className="form-control"
             value={this.state.password}
-            onChange={(e)=>{this.onChangeField(e.target.value, 'password')}}
+            onChange={e => {
+              this.onChangeField(e.target.value, 'password');
+            }}
           />
-          <button
-            className="btn btn-primary"
-            onClick={this.handleLogin}>
+          <button className="btn btn-primary" onClick={this.handleLogin}>
             Login
           </button>
         </div>
       </div>
-    )
+    );
   }
 }
 
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({ login }, dispatch);
+};
 
-export default connect()(Login);
+export default connect(null, mapDispatchToProps)(Login);

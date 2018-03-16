@@ -1,24 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { searchData } from '../store/actions.js';
+import { searchData } from '../redux/actions.js';
 
 class Search extends Component {
-
-  constructor(){
+  constructor() {
     super();
     this.state = {
       planet: '',
-    }
+    };
   }
 
-  handlePlanet = (e) => {
-    this.setState({planet: e.target.value},()=>{
+  handlePlanet = e => {
+    this.setState({ planet: e.target.value }, () => {
       this.props.dispatch(searchData(this.state.planet));
     });
-  }
+  };
 
-  render(){
-    return(
+  render() {
+    return (
       <div>
         <input
           placeholder="Planet"
@@ -27,7 +26,7 @@ class Search extends Component {
           onChange={this.handlePlanet}
         />
       </div>
-    )
+    );
   }
 }
 
