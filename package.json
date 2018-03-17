@@ -4,7 +4,7 @@
   "description": "",
   "main": "./src/index.js",
   "scripts": {
-    "dev": "webpack-dev-server --mode development --content-base ./src"
+    "start": "webpack-dev-server --mode development --content-base ./src"
   },
   "author": "",
   "license": "ISC",
@@ -31,5 +31,5 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-react": "^6.24.1",
     "webpack-cli": "^2.0.12"
-  },
+  }
 }
