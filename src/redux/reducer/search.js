@@ -16,6 +16,7 @@ export const search = (state = initialState, action) => {
         return value;
       },0);
       return {
+        ...state,
         planet: action.result,
         totalPopulation: sum
       }

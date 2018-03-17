@@ -20,12 +20,13 @@ export default class Star extends Component {
     size = size || 0;
     let fontSize = 15+25*size;
     return(
-      <div>
-        <span style={{fontSize: fontSize, cursor: 'pointer'}} onClick={this.handleClick(!this.state.showInfo)}>{planet.name}</span>
-        {this.state.showInfo && <div className="container" style={{background: '#ecf0f1'}}>
-          <h2>Name: {planet.name}</h2>
-          <h3>Climate: {planet.climate}</h3>
-          <h3>Gravity: {planet.gravity}</h3>
+      <div className="alert alert-primary" role="alert" style={{cursor: 'pointer'}} onClick={this.handleClick(!this.state.showInfo)}>
+        <span style={{fontSize: fontSize}}>{planet.name}</span>
+        {this.state.showInfo && <div className="alert alert-light" style={{marginTop: '1rem'}} role="alert">
+          <span>Climate: {planet.climate}</span><br/>
+          <span>Gravity: {planet.gravity}</span><br/>
+          <span>Diameter: {planet.diameter}</span><br/>
+          <span>Population: {planet.population}</span>
         </div>}
       </div>
     )

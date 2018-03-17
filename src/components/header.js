@@ -18,7 +18,6 @@ class Header extends Component {
   }
 
   handleLogOut = () =>{
-    window.localStorage.removeItem('token');
     this.props.logout();
   }
 

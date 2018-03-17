@@ -10,12 +10,19 @@ class Search extends Component {
     this.state = {
       search: '',
       planet: [],
-      totalPopulation: 0
+      totalPopulation: 0,
+      noData: false
     };
   }
 
   componentWillReceiveProps(nextProps){
-    this.setState({planet: nextProps.planet, totalPopulation: nextProps.totalPopulation});
+    this.setState({planet: nextProps.planet, totalPopulation: nextProps.totalPopulation},()=>{
+      if(this.state.planet.length == 0){
+        this.setState({noData: true});
+      }else{
+        this.setState({noData: false});
+      }
+    });
   }
 
   handlePlanet = e => {
@@ -37,6 +44,7 @@ class Search extends Component {
           />
         </div>
         <WrapStars planet={planet} total={totalPopulation}/>
+          {this.state.noData && <div style={{textAlign: 'center'}}><span>No planet available!!!</span></div>}
       </div>
     );
   }

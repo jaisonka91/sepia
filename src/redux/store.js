@@ -5,7 +5,17 @@ import thunk from 'redux-thunk'
 
 const enhancer = compose(
   applyMiddleware(thunk),
-  persistState(),
+  persistState(null, {slicer: (paths)=>{
+    return (state) =>{
+      let subset = {
+        user: {
+          loggedIn: state.user.loggedIn
+        }
+      };
+      return subset;
+    }
+  }
+}),
 )
 
 const store = createStore(reducer, enhancer);
